@@ -9,9 +9,9 @@ class Input extends React.Component {
     };
   }
 
-  handleChange({ target }) {
-    this.props.onUpdate(target.value);
-    this.setState({ value: target.value });
+  handleChange(event) {
+    this.props.onUpdate(event);
+    this.setState({ value: event.target.value });
   }
 
   render() {

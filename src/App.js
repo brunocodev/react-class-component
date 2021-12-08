@@ -16,26 +16,28 @@ class App extends React.Component {
     this.setState({ text });
   }
 
-  change(value) {
-    this.setState({ ...this.setState, value: value });
+  change(event) {
+    this.setState({ ...this.setState, value: event.target.value });
   }
 
   render() {
-    const text = this.props.text;
-    const textState = this.state.text;
+    const { text, value } = this.state;
+    const { message } = this.props;
     const newTextState = "Hola mundo desde el Estado!";
 
     return (
       <div>
-        <h1>{text}</h1>
+        <h1>{message}</h1>
 
-        <h2>{textState}</h2>
+        <h2>{text}</h2>
 
-        <h3>{this.state.value}</h3>
+        <h3>{value}</h3>
 
         <StatelessCompoent textColor="green" />
 
-        <Input onUpdate={this.change} />
+        <StatelessInput onUpdate={this.change.bind(this)} />
+
+        <Input onUpdate={this.change.bind(this)} />
 
         <button type="button" onClick={this.update.bind(this, newTextState)}>
           Update the State
@@ -49,16 +51,16 @@ const StatelessCompoent = ({ textColor = "red" }) => {
   return <h4 style={{ color: textColor }}>Hello, i'm the StatelessCompoent</h4>;
 };
 
-// const Input = ({ type = "text", ...props }) => (
-//   <input type={type} onChange={props.onUpdate} />
-// );
+const StatelessInput = ({ type = "text", ...props }) => (
+  <input type={type} onChange={props.onUpdate} />
+);
 
 App.propTypes = {
-  text: PropTypes.string.isRequired
+  message: PropTypes.string.isRequired
 };
 
 App.defaultProps = {
-  text: "Hola mundo!"
+  message: "Hola mundo!"
 };
 
 export default App;
